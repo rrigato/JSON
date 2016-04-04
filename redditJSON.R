@@ -1,6 +1,9 @@
 #if you havent installed it yet
 install.packages("jsonlite")
 install.packages("stringr")
+install.packages("rjson")
+
+library(rjson)
 library(jsonlite)
 library(stringr)
 
@@ -56,3 +59,4 @@ for(z in 1:numJSON)
 {
 	upvotes[z] = allJSON[[z]]$ups	
 }
+
