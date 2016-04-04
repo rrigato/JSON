@@ -33,13 +33,14 @@ countOccurrences <- function(char, s) {
 #number of JSON files is equal to }
 numJSON = countOccurrences('}', input)
 
-#list where the first json is held
-allJSON = lapply(X=input,fromJSON)
 
 #finds where the first json starts and ends
 start1 = 1
 end1 = regexpr(pattern = '}', input)[1]
 
+nextJson = substr(input, 1, end1)
+#list where the first json is held
+allJSON = lapply(X=nextJson,fromJSON)
 
 inputShrunk = input
 
@@ -54,9 +55,12 @@ for (i in 2:numJSON)
 	allJSON = c(allJSON,tempList)
 }
 
+
+
+#calculates all the upvotes into a vector from the json files that
+#were read
 upvotes = numeric(numJSON)
 for(z in 1:numJSON)
 {
 	upvotes[z] = allJSON[[z]]$ups	
 }
-
