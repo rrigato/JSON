@@ -39,19 +39,32 @@ start1 = 1
 end1 = regexpr(pattern = '}', input)[1]
 
 nextJson = substr(input, 1, end1)
+
 #list where the first json is held
 allJSON = lapply(X=nextJson,fromJSON)
 
 inputShrunk = input
 
+#takes out the json already used
 inputShrunk = substr(inputShrunk, end1 +2, nchar(inputShrunk))
 
+
+#gets each json and adds it to the list
 for (i in 2:numJSON)
 {
+	#gets the position of the close of the json 
 	end1 = regexpr(pattern = '}', inputShrunk)[1]
+
+	#gets the substring of the next json
 	nextJson = substr(inputShrunk, 1, end1)
+
+	#removes the json used from the rest of the string
 	inputShrunk = substr(inputShrunk, end1 +2, nchar(inputShrunk)) 
+
+	#makes the json into a temporary list
 	tempList = lapply(X=nextJson,fromJSON)
+
+	#adds the tempory list to the next json
 	allJSON = c(allJSON,tempList)
 }
 
